@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Learn &mdash; CoderAlyan 2</title>
+<link rel="icon" type="image/png" href="ChatGPT Image Aug 27, 2026, 09_21_06 PM.png" />
+<style>
+  :root {
+    --bg: #05050a;
+    --glow1: #7c3aed;
+    --glow2: #06b6d4;
+    --glow3: #f472b6;
+    --text: #f4f4f8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.55;
+    z-index: 0;
+    animation: drift 14s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 40vw; height: 40vw; background: var(--glow1); top: -10%; left: -10%; }
+  .orb2 { width: 35vw; height: 35vw; background: var(--glow2); bottom: -10%; right: -5%; animation-delay: -4s; }
+  .orb3 { width: 30vw; height: 30vw; background: var(--glow3); bottom: 20%; left: 30%; animation-delay: -8s; }
+
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(4vw, 3vw) scale(1.15); }
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--text);
+    padding: 3rem 1.5rem 5rem;
+    max-width: 780px;
+  }
+
+  .logo {
+    width: clamp(70px, 10vw, 110px);
+    height: auto;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 25px rgba(34, 211, 238, 0.55));
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    background: linear-gradient(90deg, #a78bfa, #22d3ee, #f472b6, #a78bfa);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 6s linear infinite;
+  }
+
+  @keyframes shine {
+    to { background-position: 300% center; }
+  }
+
+  .made-by {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: #9d9db2;
+  }
+
+  .made-by strong {
+    color: #22d3ee;
+    font-weight: 600;
+  }
+
+  .cards {
+    margin-top: 2.6rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2rem;
+    text-align: left;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.4rem;
+    backdrop-filter: blur(8px);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(124, 58, 237, 0.5);
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    color: #f4f4f8;
+  }
+
+  .card p {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #a9a9c0;
+  }
+
+  .back {
+    margin-top: 2.6rem;
+    display: inline-block;
+    padding: 0.85rem 1.9rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, #7c3aed, #22d3ee);
+    box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.7);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .back:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px -12px rgba(34, 211, 238, 0.8);
+  }
+
+  .credit {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .credit:hover {
+    transform: translateY(-3px);
+    border-color: rgba(124, 58, 237, 0.6);
+  }
+
+  .credit img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.7);
+  }
+
+  .credit span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #d6d6ea;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <div class="glow-orb orb1"></div>
+  <div class="glow-orb orb2"></div>
+  <div class="glow-orb orb3"></div>
+
+  <main class="stage">
+    <img class="logo" src="ChatGPT Image Aug 27, 2026, 09_21_06 PM.png" alt="CoderAlyan 2 Logo" />
+    <h1>Learn CoderAlyan 2</h1>
+    <p class="made-by">Made by <strong>Vite Coder Gamer (MAX)</strong> &middot; AZHA MOH Official</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>What is it?</h3>
+        <p>CoderAlyan 2 is a personal project and brand built around fast, sleek, no-fluff code &mdash; a landing page that shows off the style it is also and 2nd Version from CoderAlyan Orginal Website From (Resumed) 2025 Paused in Dec 2024.</p>
+      </div>
+      <div class="card">
+        <h3>Built With</h3>
+        <p>Plain HTML, CSS and JavaScript &mdash; no frameworks, no build step. Just open the file and it runs.</p>
+      </div>
+      <div class="card">
+        <h3>Design</h3>
+        <p>A dark neon theme with drifting glow orbs, a particle background, and animated gradient text.</p>
+      </div>
+      <div class="card">
+        <h3>About Vite Coder Gamer</h3>
+        <p>Vite Coder Gamer is an coder/gamer thing by AZHA MOH CoderAlyan Got the MAX Coder Memmership to Build This Website.</p>
+      </div>
+      <div class="card">
+        <h3>Owned/Created</h3>
+        <p>This Website Is Created By: Vite Coder Gamer Owned By: CoderAlyan.</p>
+      </div>
+      <div class="card">
+        <h3>Version/Progress</h3>
+        <p>Build: 10551.</p>
+      </div>
+    </div>
+
+    <a class="back" href="index.html">&larr; Back to Home</a>
+  </main>
+
+  <div class="credit">
+    <img src="ChatGPT Image Aug 27, 2026, 08_49_09 PM.png" alt="Vite Coder Gamer" />
+    <span>Created By Vite Coder Gamer (MAX)</span>
+  </div>
+
+</body>
+</html>

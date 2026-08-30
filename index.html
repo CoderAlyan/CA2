@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CoderAlyan 2</title>
+<link rel="icon" type="image/png" href="ChatGPT Image Aug 27, 2026, 09_21_06 PM.png" />
+<style>
+  :root {
+    --bg: #05050a;
+    --glow1: #7c3aed;
+    --glow2: #06b6d4;
+    --glow3: #f472b6;
+    --text: #f4f4f8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  canvas#bg {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.55;
+    z-index: 0;
+    animation: drift 14s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 40vw; height: 40vw; background: var(--glow1); top: -10%; left: -10%; }
+  .orb2 { width: 35vw; height: 35vw; background: var(--glow2); bottom: -10%; right: -5%; animation-delay: -4s; }
+  .orb3 { width: 30vw; height: 30vw; background: var(--glow3); bottom: 20%; left: 30%; animation-delay: -8s; }
+
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(4vw, 3vw) scale(1.15); }
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .logo {
+    width: clamp(90px, 14vw, 160px);
+    height: auto;
+    margin-bottom: 0.5rem;
+    filter: drop-shadow(0 0 25px rgba(34, 211, 238, 0.55));
+    animation: float 5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .title {
+    font-size: clamp(2.8rem, 10vw, 7.5rem);
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1.05;
+    background: linear-gradient(90deg, #a78bfa, #22d3ee, #f472b6, #a78bfa);
+    background-size: 300% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 6s linear infinite;
+    text-shadow: 0 0 60px rgba(124, 58, 237, 0.35);
+    position: relative;
+    cursor: default;
+  }
+
+  .title::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    background: none;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .title:hover {
+    animation: shine 1.2s linear infinite, glitch 0.4s steps(2, end) infinite;
+  }
+
+  @keyframes shine {
+    to { background-position: 300% center; }
+  }
+
+  @keyframes glitch {
+    0%   { transform: translate(0, 0); filter: hue-rotate(0deg); }
+    20%  { transform: translate(-2px, 1px); filter: hue-rotate(30deg); }
+    40%  { transform: translate(2px, -1px); filter: hue-rotate(-30deg); }
+    60%  { transform: translate(-1px, -1px); filter: hue-rotate(20deg); }
+    80%  { transform: translate(1px, 2px); filter: hue-rotate(-20deg); }
+    100% { transform: translate(0, 0); filter: hue-rotate(0deg); }
+  }
+
+  .subtitle {
+    margin-top: 1.4rem;
+    font-size: clamp(1rem, 2.4vw, 1.4rem);
+    color: #b6b6c8;
+    letter-spacing: 0.08em;
+    min-height: 1.6em;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 2px;
+    background: #22d3ee;
+    margin-left: 3px;
+    animation: blink 0.9s steps(1) infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .cta {
+    margin-top: 2.6rem;
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    padding: 0.85rem 1.9rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #22d3ee);
+    color: #fff;
+    box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.7);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px -12px rgba(34, 211, 238, 0.8);
+  }
+
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(6px);
+  }
+
+  .btn-ghost:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  footer {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 2;
+    color: #55556a;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .credit {
+    position: fixed;
+    bottom: 1.2rem;
+    left: 1.2rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .credit:hover {
+    transform: translateY(-3px);
+    border-color: rgba(124, 58, 237, 0.6);
+  }
+
+  .credit img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 12px rgba(124, 58, 237, 0.7);
+  }
+
+  .credit span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: #d6d6ea;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+  <div class="glow-orb orb1"></div>
+  <div class="glow-orb orb2"></div>
+  <div class="glow-orb orb3"></div>
+
+  <main class="stage">
+    <img class="logo" src="ChatGPT Image Aug 27, 2026, 09_21_06 PM.png" alt="CoderAlyan 2 Logo" />
+    <h1 class="title" data-text="CoderAlyan 2">CoderAlyan 2</h1>
+    <p class="subtitle"><span id="typed"></span><span class="cursor">&nbsp;</span></p>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="#">Get Started</a>
+      <a class="btn btn-ghost" href="Learn.html">Learn More</a>
+    </div>
+  </main>
+
+  <footer>&copy; <span id="year"></span> CoderAlyan 2 &mdash; built to code differently.</footer>
+
+  <div class="credit">
+    <img src="ChatGPT Image Aug 27, 2026, 08_49_09 PM.png" alt="Vite Coder Gamer" />
+    <span>Created By Vite Coder Gamer (MAX)</span>
+  </div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Typing effect subtitle
+  const phrases = [
+    "Build. Break. Ship.",
+    "Code that just works.",
+    "Made by Vite Coder Gamer (MAX)",
+    "Fast. Sleek. Powerful."
+  ];
+  const typedEl = document.getElementById('typed');
+  let pIndex = 0, cIndex = 0, deleting = false;
+
+  function type() {
+    const current = phrases[pIndex];
+    if (!deleting) {
+      cIndex++;
+      typedEl.textContent = current.slice(0, cIndex);
+      if (cIndex === current.length) {
+        deleting = true;
+        setTimeout(type, 1400);
+        return;
+      }
+    } else {
+      cIndex--;
+      typedEl.textContent = current.slice(0, cIndex);
+      if (cIndex === 0) {
+        deleting = false;
+        pIndex = (pIndex + 1) % phrases.length;
+      }
+    }
+    setTimeout(type, deleting ? 40 : 80);
+  }
+  type();
+
+  // Particle background
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function initParticles() {
+    const count = Math.floor((w * h) / 18000);
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.6 + 0.4
+    }));
+  }
+  initParticles();
+  window.addEventListener('resize', initParticles);
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = 'rgba(180, 180, 255, 0.6)';
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = w; if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h; if (p.y > h) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
